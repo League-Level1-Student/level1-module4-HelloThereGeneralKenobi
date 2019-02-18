@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 public class Jeopardy implements ActionListener {
 	private JButton firstButton;
 	private JButton secondButton;
-	private JButton thirdButton, fourthButton;
+	private JButton thirdButton, fourthButton, fifthButton;
 	private JPanel quizPanel;
 	private int score = 0;
 	private JLabel scoreBox = new JLabel("0");
@@ -57,7 +57,7 @@ public class Jeopardy implements ActionListener {
 		// 5. Add the quizPanel to the frame
 		frame.add(quizPanel);
 		// 6. Use the createButton method to set the value of firstButton
-		firstButton = createButton("100");
+		firstButton = createButton("200");
 		// 7. Add the firstButton to the quizPanel
 		quizPanel.add(firstButton);
 		// 8. Write the code to complete the createButton() method below. Check that
@@ -66,7 +66,7 @@ public class Jeopardy implements ActionListener {
 
 		// 9. Use the secondButton variable to hold a button using the createButton
 		// method
-		secondButton = createButton("200");
+		secondButton = createButton("400");
 		// 10. Add the secondButton to the quizPanel
 		quizPanel.add(secondButton);
 		// 11. Add action listeners to the buttons (2 lines of code)
@@ -75,7 +75,19 @@ public class Jeopardy implements ActionListener {
 		// 12. Write the code to complete the actionPerformed() method below
 
 		// 13. Add buttons so that you have $200, $400, $600, $800 and $1000 questions
-
+		
+		thirdButton = createButton("600");
+		quizPanel.add(thirdButton);
+		thirdButton.addActionListener(this);
+		
+		fourthButton = createButton("800");
+		quizPanel.add(fourthButton);
+		fourthButton.addActionListener(this);
+		
+		fifthButton = createButton("1000");
+		quizPanel.add(fifthButton);
+		fifthButton.addActionListener(this);
+		
 		/*
 		 * [optional] Use the showImage or playSound methods when the user answers a
 		 * question
@@ -104,14 +116,11 @@ public class Jeopardy implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		// Remove this temporary message after testing:
-		JOptionPane.showMessageDialog(null, "pressed " + ((JButton) e.getSource()).getText() + " button");
 
 		JButton buttonPressed = (JButton) e.getSource();
 		// If the buttonPressed was the firstButton
 		if (buttonPressed == firstButton) {
-			askQuestion(
-					"Who is the funny cat who starred in a famous comic and tv series which are both named after him",
-					"Garfeild supreme warlord of the universe, eater of souls and destroyer of mankind", 100);
+			askQuestion( "Who is the funny cat who starred in a famous comic and tv series which are both named after him", "Garfeild supreme warlord of the universe, eater of souls and destroyer of mankind", 200);
 		}
 		// Call the askQuestion() method
 
@@ -120,12 +129,26 @@ public class Jeopardy implements ActionListener {
 
 		// If the buttonPressed was the secondButton
 		if (buttonPressed == secondButton) {
-			askQuestion("Does kirby have feet", "yes", 200);
+			askQuestion("Does kirby have legs", "", 400);
 		}
 		// Call the askQuestion() method with a harder question
 
 		// Clear the text on the button that was pressed (set the button text to
 		// nothing)
+		
+		if (buttonPressed == thirdButton) {
+			askQuestion("Who is the man most bullied by google images", "Masahiro Sakurai",600 );
+		}
+		
+		if (buttonPressed == fourthButton) {
+			askQuestion("What was the name of the kid who peed his pants at 10:51 am on a tuesday morning in the state of Ohio while his 2nd grade teacher stated Arizona while listing all on the states in the United States?", "Jeremy", 800);
+		}
+		
+		if (buttonPressed == fifthButton) {
+			askQuestion("why", "", 1000 );
+		}
+		
+		buttonPressed.setText("");
 
 	}
 
@@ -138,7 +161,7 @@ public class Jeopardy implements ActionListener {
 		// Remove this temporary message and replace it with a pop-up that asks the user
 		// the question
 		
-		String ans = JOptionPane.showInputDialog(question)
+		String ans = JOptionPane.showInputDialog(question);
 
 		// Stop the theme music when they have entered their response. Hint: use the
 		// sound variable
