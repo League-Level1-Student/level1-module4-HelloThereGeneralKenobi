@@ -1,3 +1,5 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
@@ -9,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SlotMachine {
+public class SlotMachine implements ActionListener {
 
 	JFrame frame;
 	JPanel panel;
@@ -27,48 +29,90 @@ public class SlotMachine {
 		frame = new JFrame("Gamble your problems away!");
 		panel = new JPanel();
 		button = new JButton("Spin");
-		frame.add(button);
+		panel.add(button);
 		frame.add(panel);
 		frame.setVisible(true);
-		frame.setSize(1200, 1000);
+		button.addActionListener(this);
 
-		try {
 			label1 = createLabelImage("seven.png");
 			label2 = createLabelImage("sad.png");
 			label3 = createLabelImage("thumbsdown.png");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+	}
+
+	private void add(JButton button2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	void spin() {
 		Random randgen = new Random();
+		frame.remove(panel);
+		panel = new JPanel();
+		frame.add(panel);
+		panel.add(button);
 		
-		for(int i = 0; i < 3; i ++) {
+		
+			int random = randgen.nextInt(3);
+			if(random == 0) {
+				label1 = createLabelImage("seven.png");
+			}
 			if(random == 1) {
-				frame.add(label1);
+				label1 = createLabelImage("sad.png");
 			}
 			if(random == 2) {
-				frame.add(label2);
+				label1 = createLabelImage("thumbsdown.png");
 			}
-			if(random == 3) {
-				frame.add(label3);
+			panel.add(label1);
+			
+			random = randgen.nextInt(3);
+			if(random == 0) {
+				label2 = createLabelImage("seven.png");
 			}
-		}
+			if(random == 1) {
+				label2 = createLabelImage("sad.png");
+			}
+			if(random == 2) {
+				label2 = createLabelImage("thumbsdown.png");
+			}
+			panel.add(label1);
+			
+			random = randgen.nextInt(3);
+			if(random == 0) {
+				label3 = createLabelImage("seven.png");
+			}
+			if(random == 1) {
+				label3 = createLabelImage("sad.png");
+			}
+			if(random == 2) {
+				label3 = createLabelImage("thumbsdown.png");
+			}
+			panel.add(label1);
+			panel.add(label2);
+			panel.add(label3);
+			
+		frame.pack();
 		
 		
 	}
 
-	private JLabel createLabelImage(String fileName) throws MalformedURLException {
+	private JLabel createLabelImage(String fileName) {
+		JLabel imageLabel = null;
 		URL imageURL = getClass().getResource(fileName);
 		if (imageURL == null) {
 			System.err.println("Could not find image " + fileName);
 			return new JLabel();
 		}
 		Icon icon = new ImageIcon(imageURL);
-		JLabel imageLabel = new JLabel(icon);
+		imageLabel = new JLabel(icon);
+		
 		return imageLabel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		spin();
 	}
 }
 
